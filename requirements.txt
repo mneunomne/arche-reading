@@ -1,2 +1,6 @@
 pyaudio
 matplotlib
+numpy
+scipy.io
+sounddevice
+playsound
