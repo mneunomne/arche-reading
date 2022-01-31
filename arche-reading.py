@@ -26,18 +26,26 @@ def openSampleData ():
 # detections are structured in the following way:
 # [[x, y, w, h, class_int]]
 def playDetections(detections):
-  wavedata = ''
   # Arche Writing: Process detectiosn
   sorted(detections, key=lambda k: [k[1], k[0]])
   numbers=[]
   for d in detections:
-      wavedata = wavedata+chr(d[4])
-      numbers.append(d[4])
-  playWavedata(numbers)
+    wavedata = wavedata+chr(d[4])
+    numbers.append(d[4])
+  print("numbers", len(numbers))
+  if len(numbers) > 0:
+    playWavedata(numbers)
 
 # play wavedata as a string of chr(d[4])
 def playWavedata (numbers, sample_rate=SAMPLERATE):
   wavedata = np.asarray(numbers).astype(np.int8)
+  pya = pyaudio.PyAudio()
+  stream = pya.open(format=pya.get_format_from_width(width=1), channels=1, rate=sample_rate, output=True)
+  stream.write(wavedata)
+  stream.stop_stream()
+  stream.close()
+  pya.terminate()
+  #write("temp.wav", sample_rate, wavedata)
+  #playsound('temp.wav')
 
-  write("temp.wav", sample_rate, wavedata)
-  playsound('temp.wav')
+openSampleData()
