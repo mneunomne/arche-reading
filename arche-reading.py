@@ -41,6 +41,3 @@ def playWavedata (numbers, sample_rate=SAMPLERATE):
 
   write("temp.wav", sample_rate, wavedata)
   playsound('temp.wav')
-
-
-openSampleData()
